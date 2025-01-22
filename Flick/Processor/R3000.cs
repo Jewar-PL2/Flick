@@ -76,9 +76,14 @@ public partial class R3000
         nextProgramCounter = programCounter + instruction.ImmediateSigned * 4;
         branchTaken = true;
         
-        Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
+        Utility.Log($"CPU: Jumping to 0x{nextProgramCounter:X8}");
     }
 
+    private uint Read32(uint address)
+    {
+        return core.Read32(address);
+    }
+    
     private void Write32(uint address, uint value)
     {
         if (!cop0.CacheIsolated)
@@ -103,6 +108,7 @@ public partial class R3000
             
             case 0x02: J(); break;
             case 0x03: JAL(); break;
+            case 0x04: BEQ(); break;
             case 0x05: BNE(); break;
             case 0x09: ADDIU(); break;
             case 0x0D: ORI(); break;
