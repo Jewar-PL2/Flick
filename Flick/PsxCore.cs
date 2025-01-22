@@ -54,6 +54,12 @@ public class PsxCore
     {
         address = GetMaskedAddress(address);
         
+        if (address < 0x1F000000)
+        {
+            // 2 MB RAM is mirrored
+            return ram[address & 0x1FFFFF];
+        }
+        
         if (address >= 0x1FC00000 && address < 0x1FC80000)
         {
             return bios[address - 0x1FC00000];
@@ -111,6 +117,13 @@ public class PsxCore
     public void Write8(uint address, byte value)
     {
         address = GetMaskedAddress(address);
+
+        if (address < 0x1F000000)
+        {
+            // 2 MB RAM is mirrored
+            ram[address & 0x1FFFFF] = value;
+            return;
+        }
         
         if (address >= 0x1F802000 && address < 0x1F804000)
         {
