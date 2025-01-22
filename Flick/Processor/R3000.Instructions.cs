@@ -157,6 +157,21 @@ public partial class R3000
         
         Write8(address, value);
     }
+    
+    private void SH()
+    {
+        uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
+        ushort value = (ushort)registers[instruction.Rt];
+        PerformDelayedLoad();
+        
+        if (address % 2 != 0)
+        {
+            Utility.Panic($"CPU: Unaligned address: 0x{address:8X}");
+            return;
+        }
+
+        Write16(address, value);
+    }
 
     private void SW()
     {

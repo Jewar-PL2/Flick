@@ -143,6 +143,7 @@ public partial class R3000
             case 0x20: LB(); break;
             case 0x23: LW(); break;
             case 0x28: SB(); break;
+            case 0x29: SH(); break;
             case 0x2B: SW(); break;
             
             default: IllegalInstruction(); break;
