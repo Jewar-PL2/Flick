@@ -34,6 +34,12 @@ public partial class R3000
         PerformDelayedLoad();
     }
     
+    private void JALR()
+    {
+        registers[instruction.Rd] = nextProgramCounter;
+        JR();
+    }
+    
     private void ADDU()
     {
         uint a = registers[instruction.Rs];
@@ -80,8 +86,7 @@ public partial class R3000
 
     private void JAL()
     {
-        uint returnAddress = nextProgramCounter;
-        registers[31] = returnAddress;
+        registers[31] = nextProgramCounter;
         J();
     }
     
@@ -164,6 +169,14 @@ public partial class R3000
         }
 
         uint value = Read32(address);
+        SetupDelayedLoad(instruction.Rt, value);
+    }
+    
+    private void LBU()
+    {
+        uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
+
+        byte value = Read8(address);
         SetupDelayedLoad(instruction.Rt, value);
     }
     
