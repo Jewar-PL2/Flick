@@ -30,38 +30,47 @@ public class PsxCore
         if (address < 0x1F000000)
         {
             // 2 MB RAM is mirrored
-            return BitConverter.ToUInt32(ram, (int)(address & 0x1FFFFF));
+            return Utility.ReadUInt32(ram, address & 0x1FFFFF);
         }
-        else if (address >= 0x1FC00000 && address < 0x1FC80000)
+        
+        if (address >= 0x1FC00000 && address < 0x1FC80000)
         {
-            return BitConverter.ToUInt32(bios, (int)(address - 0x1FC00000));
+            return Utility.ReadUInt32(bios, address - 0x1FC00000);
         }
-        else
-        {
-            Utility.Panic($"PSXCORE: Unhandled Read32 from 0x{address:X8}");
-            return 0x00;
-        }
+        
+        Utility.Panic($"PSXCORE: Unhandled Read32 from 0x{address:X8}"); 
+        return 0x00;
     }
 
     public void Write32(uint address, uint value)
     {
         address = GetMaskedAddress(address);
 
+        if (address < 0x1F000000)
+        {
+            // 2 MB RAM is mirrored
+            Utility.WriteUInt32(ram, address & 0x1FFFFF, value);
+            return;
+        }
+        
         if (address >= 0x1F801000 && address < 0x1F801040)
         {
             Utility.Log($"PSXCORE: Unhandled Write32 to MEMORY CONTROL 1 at 0x{address:X8}: 0x{value:X8}");
+            return;
         }
-        else if (address >= 0x1F801060 && address < 0x1F801064)
+        
+        if (address >= 0x1F801060 && address < 0x1F801064)
         {
             Utility.Log($"PSXCORE: Unhandled Write32 to RAM_SIZE at 0x{address:X8}: 0x{value:X8}");
+            return;
         }
-        else if (address == 0xFFFE0130)
+        
+        if (address == 0xFFFE0130)
         {
             Utility.Log($"PSXCORE: Unhandled Write32 to CACHE CONTROL at 0x{address:X8}: 0x{value:X8}");
+            return;
         }
-        else
-        {
-            Utility.Panic($"PSXCORE: Unhandled Write32 to 0x{address:X8}: 0x{value:X8}");
-        }
+
+        Utility.Panic($"PSXCORE: Unhandled Write32 to 0x{address:X8}: 0x{value:X8}");
     }
 }
