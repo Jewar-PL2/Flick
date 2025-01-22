@@ -106,6 +106,12 @@ public class PsxCore
     {
         address = GetMaskedAddress(address);
         
+        if (address >= 0x1F802000 && address < 0x1F804000)
+        {
+            Utility.Log($"PSXCORE: Unhandled Write8 to EXPANSION 2 at 0x{address:X8}: 0x{value:X8}");
+            return;
+        }
+        
         Utility.Panic($"PSXCORE: Unhandled Write8 to 0x{address:X8}: 0x{value:X8}");
     }
 }
