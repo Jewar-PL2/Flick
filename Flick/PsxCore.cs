@@ -54,6 +54,11 @@ public class PsxCore
     {
         address = GetMaskedAddress(address);
         
+        if (address >= 0x1FC00000 && address < 0x1FC80000)
+        {
+            return bios[address - 0x1FC00000];
+        }
+        
         Utility.Panic($"PSXCORE: Unhandled Read8 from 0x{address:X8}"); 
         return 0x00;
     }
