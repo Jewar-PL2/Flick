@@ -7,7 +7,7 @@ public class PsxCore
 
     public PsxCore(string biosPath)
     {
-        // Todo: Verify is BIOS size is correct
+        // Todo: Verify if BIOS size is correct
         bios = File.ReadAllBytes(biosPath);
     }
 }
