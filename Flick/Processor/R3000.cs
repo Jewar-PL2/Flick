@@ -71,6 +71,14 @@ public partial class R3000
         loadSlot = new LoadSlot(index, value);
     }
 
+    private void Write32(uint address, uint value)
+    {
+        if (!cop0.CacheIsolated)
+        {
+            core.Write32(address, value);
+        }
+    }
+
     private void Execute()
     {
         switch (instruction.Opcode)

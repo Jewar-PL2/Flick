@@ -67,9 +67,24 @@ public partial class R3000
     {
         switch (instruction.Rs)
         {
-            case 0: cop0.Read(instruction.Rd); break;
+            case 0: MFC0(); break;
+            case 4: MTC0(); break;
             default: IllegalInstruction(); break;
         }
+    }
+
+    private void MFC0()
+    {
+        uint value = cop0.Read(instruction.Rd);
+        SetupDelayedLoad(instruction.Rt, value);
+    }
+
+    private void MTC0()
+    {
+        uint value = registers[instruction.Rt];
+        PerformDelayedLoad();
+        
+        cop0.Write(instruction.Rd, value);
     }
 
     private void SW()
@@ -84,6 +99,6 @@ public partial class R3000
             return;
         }
 
-        core.Write32(address, value);
+        Write32(address, value);
     }
 }
