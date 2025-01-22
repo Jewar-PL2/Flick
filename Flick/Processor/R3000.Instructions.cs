@@ -148,6 +148,15 @@ public partial class R3000
         uint value = Read32(address);
         SetupDelayedLoad(instruction.Rt, value);
     }
+    
+    private void SB()
+    {
+        uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
+        byte value = (byte)registers[instruction.Rt];
+        PerformDelayedLoad();
+        
+        Write8(address, value);
+    }
 
     private void SW()
     {
