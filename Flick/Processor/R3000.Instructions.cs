@@ -112,6 +112,19 @@ public partial class R3000
         cop0.Write(instruction.Rd, value);
     }
 
+    private void LW()
+    {
+        uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
+        if (address % 4 != 0)
+        {
+            Utility.Panic($"CPU: Unaligned address: 0x{address:8X}");
+            return;
+        }
+
+        uint value = Read32(address);
+        SetupDelayedLoad(instruction.Rt, value);
+    }
+
     private void SW()
     {
         uint address = registers[instruction.Rs] + instruction.ImmediateSigned;

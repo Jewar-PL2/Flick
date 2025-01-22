@@ -114,6 +114,7 @@ public partial class R3000
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;
             case 0x10: COP0(); break;
+            case 0x23: LW(); break;
             case 0x2B: SW(); break;
             
             default: IllegalInstruction(); break;
