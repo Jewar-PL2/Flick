@@ -42,4 +42,11 @@ public static class Utility
         buffer[offset + 0] = (byte)(value >> 0);
         buffer[offset + 1] = (byte)(value >> 8);
     }
+
+    // Todo: Maybe refactor this function
+    public static bool CheckAddOverflow(uint a, uint b, out uint result)
+    {
+        result = a + b;
+        return ((a ^ result) & (b ^ result)) >> 31 != 0;
+    }
 }
