@@ -82,11 +82,37 @@ public partial class R3000
         return core.Read32(address);
     }
     
+    private ushort Read16(uint address)
+    {
+        return core.Read16(address);
+    }
+    
+    private byte Read8(uint address)
+    {
+        return core.Read8(address);
+    }
+    
     private void Write32(uint address, uint value)
     {
         if (!cop0.CacheIsolated)
         {
             core.Write32(address, value);
+        }
+    }
+    
+    private void Write16(uint address, ushort value)
+    {
+        if (!cop0.CacheIsolated)
+        {
+            core.Write16(address, value);
+        }
+    }
+    
+    private void Write8(uint address, byte value)
+    {
+        if (!cop0.CacheIsolated)
+        {
+            core.Write8(address, value);
         }
     }
 

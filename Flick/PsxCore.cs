@@ -41,6 +41,18 @@ public class PsxCore
         Utility.Panic($"PSXCORE: Unhandled Read32 from 0x{address:X8}"); 
         return 0x00;
     }
+    
+    public ushort Read16(uint address)
+    {
+        Utility.Panic($"PSXCORE: Unhandled Read16 from 0x{address:X8}"); 
+        return 0x00;
+    }
+
+    public byte Read8(uint address)
+    {
+        Utility.Panic($"PSXCORE: Unhandled Read8 from 0x{address:X8}"); 
+        return 0x00;
+    }
 
     public void Write32(uint address, uint value)
     {
@@ -72,5 +84,15 @@ public class PsxCore
         }
 
         Utility.Panic($"PSXCORE: Unhandled Write32 to 0x{address:X8}: 0x{value:X8}");
+    }
+
+    public void Write16(uint address, ushort value)
+    {
+        Utility.Panic($"PSXCORE: Unhandled Write16 to 0x{address:X8}: 0x{value:X8}");
+    }
+    
+    public void Write8(uint address, byte value)
+    {
+        Utility.Panic($"PSXCORE: Unhandled Write8 to 0x{address:X8}: 0x{value:X8}");
     }
 }

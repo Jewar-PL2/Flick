@@ -108,6 +108,14 @@ public partial class R3000
         cop0.Write(instruction.Rd, value);
     }
 
+    private void LB()
+    {
+        uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
+
+        sbyte value = (sbyte) Read8(address);
+        SetupDelayedLoad(instruction.Rt, (uint)value);
+    }
+    
     private void LW()
     {
         uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
