@@ -22,4 +22,14 @@ public class R3000
         // Todo: Handle iCache and stuff
         return new Instruction(core.Read32(programCounter));
     }
+
+    public void Step()
+    {
+        Instruction instruction = FetchInstruction();
+
+        programCounter = nextProgramCounter;
+        nextProgramCounter = programCounter + 4;
+        
+        // what now?
+    }
 }
