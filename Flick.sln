@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flick", "Flick\Flick.csproj", "{09F81DEC-53AD-42CA-B303-366C117315DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flick.ConsoleApp", "Flick.ConsoleApp\Flick.ConsoleApp.csproj", "{8367C114-5332-4F9A-BAC7-051F6E66FC9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09F81DEC-53AD-42CA-B303-366C117315DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09F81DEC-53AD-42CA-B303-366C117315DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09F81DEC-53AD-42CA-B303-366C117315DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09F81DEC-53AD-42CA-B303-366C117315DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8367C114-5332-4F9A-BAC7-051F6E66FC9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8367C114-5332-4F9A-BAC7-051F6E66FC9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8367C114-5332-4F9A-BAC7-051F6E66FC9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8367C114-5332-4F9A-BAC7-051F6E66FC9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
