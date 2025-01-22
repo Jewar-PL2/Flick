@@ -2,8 +2,6 @@
 
 public partial class R3000
 {
-    // Todo: Handle delayed loads before writing to registers
-
     private void IllegalInstruction()
     {
         Utility.Panic($"CPU: Unhandled instruction: 0x{instruction.Raw:X8}");
@@ -30,6 +28,7 @@ public partial class R3000
     {
         branchTaken = true;
         nextProgramCounter = (programCounter & 0xF0000000) | (instruction.Target * 4);
+        PerformDelayedLoad();
         Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
     }
 
@@ -46,6 +45,7 @@ public partial class R3000
         uint a = registers[instruction.Rs];
         uint b = instruction.ImmediateSigned;
         uint result = a + b;
+        PerformDelayedLoad();
         
         registers[instruction.Rt] = result;
     }
@@ -53,12 +53,13 @@ public partial class R3000
     private void ORI()
     {
         uint value = registers[instruction.Rs] | instruction.Immediate;
-        
+        PerformDelayedLoad();
         registers[instruction.Rt] = value;
     }
     
     private void LUI()
     {
+        PerformDelayedLoad();
         registers[instruction.Rt] = instruction.Immediate << 16;
     }
 
@@ -66,6 +67,7 @@ public partial class R3000
     {
         switch (instruction.Rs)
         {
+            case 0: cop0.Read(instruction.Rd); break;
             default: IllegalInstruction(); break;
         }
     }
@@ -74,6 +76,7 @@ public partial class R3000
     {
         uint address = registers[instruction.Rs] + instruction.ImmediateSigned;
         uint value = registers[instruction.Rt];
+        PerformDelayedLoad();
         
         if (address % 4 != 0)
         {

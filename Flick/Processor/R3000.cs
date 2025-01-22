@@ -1,5 +1,6 @@
 ﻿namespace Flick.Processor;
 
+using LoadSlot = (uint index, uint value);
 public partial class R3000
 {
     private PsxCore core;
@@ -13,6 +14,8 @@ public partial class R3000
     private bool inBranchDelaySlot;
     private bool branchTaken;
 
+    private LoadSlot? loadSlot;
+
     private Instruction instruction;
 
     public R3000(PsxCore core)
@@ -23,6 +26,8 @@ public partial class R3000
         registers = new uint[32];
         programCounter = 0xBFC00000;
         nextProgramCounter = programCounter + 4;
+
+        loadSlot = null;
         
         instruction = new Instruction(0);
     }
@@ -44,6 +49,26 @@ public partial class R3000
         branchTaken = false;
         
         Execute();
+    }
+
+    private void PerformDelayedLoad()
+    {
+        if (loadSlot is null) return;
+        
+        (uint index, uint value) = loadSlot.Value;
+        registers[index] = value;
+        loadSlot = null;
+    }
+
+    private void SetupDelayedLoad(uint index, uint value)
+    {
+        if (loadSlot is not null)
+        {
+            (uint pendingIndex, uint pendingValue) = loadSlot.Value;
+            if (pendingIndex != index) registers[pendingIndex] = pendingValue;
+        }
+        
+        loadSlot = new LoadSlot(index, value);
     }
 
     private void Execute()
