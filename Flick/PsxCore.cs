@@ -10,4 +10,14 @@ public class PsxCore
         // Todo: Verify if BIOS size is correct
         bios = File.ReadAllBytes(biosPath);
     }
+
+    public uint Read32(uint address)
+    {
+        if (address >= 0xBFC00000 && address < 0xBFC80000)
+        {
+            return BitConverter.ToUInt32(bios, (int)(address - 0xBFC00000));
+        }
+
+        return 0x00;
+    }
 }
