@@ -44,6 +44,14 @@ public partial class R3000
         registers[instruction.Rd] = result;
     }
     
+    private void AND()
+    {
+        uint value = registers[instruction.Rs] & registers[instruction.Rt];
+        PerformDelayedLoad();
+        
+        registers[instruction.Rd] = value;
+    }
+    
     private void OR()
     {
         uint value = registers[instruction.Rs] | registers[instruction.Rt];
