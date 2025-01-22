@@ -5,11 +5,17 @@ namespace Flick.ConsoleApp;
 
 public static class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, world!");
+        if (args.Length == 0)
+        {
+            Console.WriteLine("Please specify BIOS path");
+            return;
+        }
         
-        // System system = new System("SCPH1001.BIN");
-        // R3000 cpu = new R3000(system);
+        string biosPath = args[0];
+        
+        PsxCore psxCore = new PsxCore(biosPath);
+        R3000 cpu = new R3000(psxCore);
     }
 }
