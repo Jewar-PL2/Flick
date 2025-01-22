@@ -35,7 +35,7 @@ public class R3000
         programCounter = nextProgramCounter;
         nextProgramCounter = programCounter + 4;
         
-        // what now?
+        Execute();
     }
 
     private void Execute()
