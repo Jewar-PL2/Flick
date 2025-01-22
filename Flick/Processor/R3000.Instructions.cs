@@ -13,7 +13,8 @@ public partial class R3000
         if (instruction.Raw == 0) return;
         
         uint value = registers[instruction.Rt] << (byte)instruction.Shift;
-
+        PerformDelayedLoad();
+        
         registers[instruction.Rd] = value;
     }
 
@@ -24,10 +25,21 @@ public partial class R3000
         
         PerformDelayedLoad();
     }
+
+    private void SUBU()
+    {
+        uint a = registers[instruction.Rs];
+        uint b = registers[instruction.Rt];
+        uint result = a - b;
+        PerformDelayedLoad();
+        
+        registers[instruction.Rd] = result;
+    }
     
     private void OR()
     {
         uint value = registers[instruction.Rs] | registers[instruction.Rt];
+        PerformDelayedLoad();
         
         registers[instruction.Rd] = value;
     }
