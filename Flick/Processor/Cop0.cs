@@ -29,7 +29,18 @@ public class Cop0
     {
         switch (index)
         {
+            case 3: break;
+            case 5: break;
+            case 6: break;
+            case 7: break;
+            case 9: break;
+            case 11: break;
+
             case 12: status = value; break;
+            
+            case 13:
+                // CAUSE is not yet implemented, for now ignoring
+                break;
             
             default: 
                 Utility.Panic($"COP0: Unhandled write to register {index}: 0x{value:X8}");
