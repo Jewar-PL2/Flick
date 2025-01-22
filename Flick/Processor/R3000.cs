@@ -16,4 +16,10 @@ public class R3000
         programCounter = 0xBFC00000;
         nextProgramCounter = programCounter + 4;
     }
+
+    private Instruction FetchInstruction()
+    {
+        // Todo: Handle iCache and stuff
+        return new Instruction(core.Read32(programCounter));
+    }
 }
