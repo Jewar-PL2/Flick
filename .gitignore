@@ -4,3 +4,8 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea/
+
+*.BIN
+*.bin
+*.cue
+*.CUE
