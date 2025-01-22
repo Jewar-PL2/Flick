@@ -40,6 +40,21 @@ public partial class R3000
         JR();
     }
     
+    private void ADD()
+    {
+        uint a = registers[instruction.Rs];
+        uint b = registers[instruction.Rt];
+        PerformDelayedLoad();
+
+        if (Utility.CheckAddOverflow(a, b, out uint result))
+        {
+            Utility.Panic($"CPU: ADD overflow");
+            return;
+        }
+        
+        registers[instruction.Rd] = result;
+    }
+    
     private void ADDU()
     {
         uint a = registers[instruction.Rs];
