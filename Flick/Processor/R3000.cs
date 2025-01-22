@@ -1,6 +1,6 @@
 ﻿namespace Flick.Processor;
 
-public class R3000
+public partial class R3000
 {
     private PsxCore core;
     
@@ -42,6 +42,9 @@ public class R3000
     {
         switch (instruction.Opcode)
         {
+            case 0x0D: ORI(); break;
+            case 0x0F: LUI(); break;
+            
             default:
                 Utility.Panic($"Unhandled instruction: {instruction.Raw:X8}");
                 break;
