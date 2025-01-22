@@ -11,4 +11,11 @@ public static class Utility
         // Todo: Replace this with a better Exception
         throw new Exception("Panic");
     }
+
+    public static void Log(string message)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkYellow;
+        Console.WriteLine("[LOG] " + message);
+        Console.ResetColor();
+    }
 }

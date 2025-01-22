@@ -20,4 +20,9 @@ public class PsxCore
 
         return 0x00;
     }
+
+    public void Write32(uint address, uint value)
+    {
+        Utility.Log($"Unhandled Write32 to 0x{address:X8}: 0x{value:X8}");
+    }
 }
