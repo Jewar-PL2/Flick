@@ -23,7 +23,6 @@ public partial class R3000
         branchTaken = true;
         
         PerformDelayedLoad();
-        Utility.Log($"CPU: Jumping to 0x{nextProgramCounter:X8}");
     }
     
     private void OR()
@@ -39,7 +38,6 @@ public partial class R3000
         branchTaken = true;
         
         PerformDelayedLoad();
-        Utility.Log($"CPU: Jumping to 0x{nextProgramCounter:X8}");
     }
 
     private void JAL()
@@ -47,8 +45,6 @@ public partial class R3000
         uint returnAddress = nextProgramCounter;
         registers[31] = returnAddress;
         J();
-        
-        Utility.Log($"CPU: Linking RA to 0x{returnAddress:X8}");
     }
     
     private void BEQ()

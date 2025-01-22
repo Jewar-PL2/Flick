@@ -75,8 +75,6 @@ public partial class R3000
     {
         nextProgramCounter = programCounter + instruction.ImmediateSigned * 4;
         branchTaken = true;
-        
-        Utility.Log($"CPU: Jumping to 0x{nextProgramCounter:X8}");
     }
 
     private uint Read32(uint address)
