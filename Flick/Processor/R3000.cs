@@ -73,8 +73,10 @@ public partial class R3000
 
     private void Branch()
     {
-        branchTaken = true;
         nextProgramCounter = programCounter + instruction.ImmediateSigned * 4;
+        branchTaken = true;
+        
+        Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
     }
 
     private void Write32(uint address, uint value)
@@ -93,6 +95,7 @@ public partial class R3000
                 switch (instruction.Function)
                 {
                     case 0x00: SLL(); break;
+                    case 0x08: JR(); break;
                     case 0x25: OR(); break;
                     default: IllegalInstruction(); break;
                 }

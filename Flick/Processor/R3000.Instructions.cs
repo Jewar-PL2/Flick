@@ -16,6 +16,15 @@ public partial class R3000
 
         registers[instruction.Rd] = value;
     }
+
+    private void JR()
+    {
+        nextProgramCounter = registers[instruction.Rs];
+        branchTaken = true;
+        
+        PerformDelayedLoad();
+        Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
+    }
     
     private void OR()
     {
@@ -26,8 +35,9 @@ public partial class R3000
 
     private void J()
     {
-        branchTaken = true;
         nextProgramCounter = (programCounter & 0xF0000000) | (instruction.Target * 4);
+        branchTaken = true;
+        
         PerformDelayedLoad();
         Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
     }
@@ -37,6 +47,7 @@ public partial class R3000
         uint returnAddress = nextProgramCounter;
         registers[31] = returnAddress;
         J();
+        
         Utility.Log($"R3000: Linking RA to 0x{returnAddress:X8}");
     }
 
