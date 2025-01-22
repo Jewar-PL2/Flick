@@ -8,6 +8,9 @@ public partial class R3000
     
     private uint programCounter;
     private uint nextProgramCounter;
+    
+    private bool inBranchDelaySlot;
+    private bool branchTaken;
 
     private Instruction instruction;
 
@@ -34,6 +37,9 @@ public partial class R3000
 
         programCounter = nextProgramCounter;
         nextProgramCounter = programCounter + 4;
+
+        inBranchDelaySlot = branchTaken;
+        branchTaken = false;
         
         Execute();
     }
@@ -42,13 +48,21 @@ public partial class R3000
     {
         switch (instruction.Opcode)
         {
+            case 0x00:
+                switch (instruction.Function)
+                {
+                    case 0x00: SLL(); break;
+                    default: IllegalInstruction(); break;
+                }
+                break;
+            
+            case 0x02: J(); break;
+            case 0x09: ADDIU(); break;
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;
             case 0x2B: SW(); break;
             
-            default:
-                Utility.Panic($"Unhandled instruction: {instruction.Raw:X8}");
-                break;
+            default: IllegalInstruction(); break;
         }
     }
 }
