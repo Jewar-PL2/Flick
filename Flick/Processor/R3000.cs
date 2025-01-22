@@ -52,11 +52,13 @@ public partial class R3000
                 switch (instruction.Function)
                 {
                     case 0x00: SLL(); break;
+                    case 0x25: OR(); break;
                     default: IllegalInstruction(); break;
                 }
                 break;
             
             case 0x02: J(); break;
+            case 0x03: JAL(); break;
             case 0x09: ADDIU(); break;
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;

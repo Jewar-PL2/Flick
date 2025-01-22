@@ -18,12 +18,27 @@ public partial class R3000
 
         registers[instruction.Rd] = value;
     }
+    
+    private void OR()
+    {
+        uint value = registers[instruction.Rs] | registers[instruction.Rt];
+        
+        registers[instruction.Rd] = value;
+    }
 
     private void J()
     {
         branchTaken = true;
         nextProgramCounter = (programCounter & 0xF0000000) | (instruction.Target * 4);
         Utility.Log($"R3000: Jumping to 0x{nextProgramCounter:X8}");
+    }
+
+    private void JAL()
+    {
+        uint returnAddress = nextProgramCounter;
+        registers[31] = returnAddress;
+        J();
+        Utility.Log($"R3000: Linking RA to 0x{returnAddress:X8}");
     }
 
     private void ADDIU()
