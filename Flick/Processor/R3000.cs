@@ -44,6 +44,7 @@ public partial class R3000
         {
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;
+            case 0x2B: SW(); break;
             
             default:
                 Utility.Panic($"Unhandled instruction: {instruction.Raw:X8}");
