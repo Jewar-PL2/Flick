@@ -3,10 +3,10 @@
 using LoadSlot = (uint index, uint value);
 public partial class R3000
 {
-    private PsxCore core;
-    private Cop0 cop0;
+    private readonly PsxCore core;
+    private readonly Cop0 cop0;
     
-    private uint[] registers;
+    private readonly uint[] registers;
     
     private uint programCounter;
     private uint nextProgramCounter;
@@ -26,6 +26,9 @@ public partial class R3000
         registers = new uint[32];
         programCounter = 0xBFC00000;
         nextProgramCounter = programCounter + 4;
+
+        inBranchDelaySlot = false;
+        branchTaken = false;
 
         loadSlot = null;
         
@@ -77,20 +80,11 @@ public partial class R3000
         branchTaken = true;
     }
 
-    private uint Read32(uint address)
-    {
-        return core.Read32(address);
-    }
+    private uint Read32(uint address) => core.Read32(address);
     
-    private ushort Read16(uint address)
-    {
-        return core.Read16(address);
-    }
+    private ushort Read16(uint address) => core.Read16(address);
     
-    private byte Read8(uint address)
-    {
-        return core.Read8(address);
-    }
+    private byte Read8(uint address)=> core.Read8(address);
     
     private void Write32(uint address, uint value)
     {
