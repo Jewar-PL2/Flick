@@ -33,6 +33,16 @@ public partial class R3000
         
         PerformDelayedLoad();
     }
+    
+    private void ADDU()
+    {
+        uint a = registers[instruction.Rs];
+        uint b = registers[instruction.Rt];
+        uint result = a + b;
+        PerformDelayedLoad();
+        
+        registers[instruction.Rd] = result;
+    }
 
     private void SUBU()
     {

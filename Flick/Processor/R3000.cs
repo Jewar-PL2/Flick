@@ -126,6 +126,7 @@ public partial class R3000
                     case 0x00: SLL(); break;
                     case 0x03: SRA(); break;
                     case 0x08: JR(); break;
+                    case 0x21: ADDU(); break;
                     case 0x23: SUBU(); break;
                     case 0x24: AND(); break;
                     case 0x25: OR(); break;
