@@ -98,6 +98,12 @@ public class PsxCore
     public void Write16(uint address, ushort value)
     {
         address = GetMaskedAddress(address);
+
+        if (address >= 0x1F801830 && address < 0x1F802000)
+        {
+            Utility.Log($"PSXCORE: Unhandled Write16 to SPU at 0x{address:X8}: 0x{value:X8}");
+            return;
+        }
         
         Utility.Panic($"PSXCORE: Unhandled Write16 to 0x{address:X8}: 0x{value:X8}");
     }
