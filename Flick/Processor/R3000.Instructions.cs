@@ -62,6 +62,14 @@ public partial class R3000
         registers[instruction.Rt] = instruction.Immediate << 16;
     }
 
+    private void COP0()
+    {
+        switch (instruction.Rs)
+        {
+            default: IllegalInstruction(); break;
+        }
+    }
+
     private void SW()
     {
         uint address = registers[instruction.Rs] + instruction.ImmediateSigned;

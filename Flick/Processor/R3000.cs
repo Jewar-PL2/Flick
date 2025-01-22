@@ -3,6 +3,7 @@
 public partial class R3000
 {
     private PsxCore core;
+    private Cop0 cop0;
     
     private uint[] registers;
     
@@ -17,6 +18,7 @@ public partial class R3000
     public R3000(PsxCore core)
     {
         this.core = core;
+        cop0 = new Cop0();
         
         registers = new uint[32];
         programCounter = 0xBFC00000;
@@ -62,6 +64,7 @@ public partial class R3000
             case 0x09: ADDIU(); break;
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;
+            case 0x10: COP0(); break;
             case 0x2B: SW(); break;
             
             default: IllegalInstruction(); break;
