@@ -17,5 +17,13 @@ public static class Program
         
         PsxCore psxCore = new PsxCore(biosPath);
         R3000 cpu = new R3000(psxCore);
+
+        while (true)
+        {
+            // Crashes at unhandled instruction or memory access
+            cpu.Step();
+        }
     }
 }
+
+// I need my baby boy...
