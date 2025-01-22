@@ -71,6 +71,12 @@ public partial class R3000
         loadSlot = new LoadSlot(index, value);
     }
 
+    private void Branch()
+    {
+        branchTaken = true;
+        nextProgramCounter = programCounter + instruction.ImmediateSigned * 4;
+    }
+
     private void Write32(uint address, uint value)
     {
         if (!cop0.CacheIsolated)
@@ -94,6 +100,7 @@ public partial class R3000
             
             case 0x02: J(); break;
             case 0x03: JAL(); break;
+            case 0x05: BNE(); break;
             case 0x09: ADDIU(); break;
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;

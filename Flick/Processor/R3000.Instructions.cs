@@ -40,6 +40,13 @@ public partial class R3000
         Utility.Log($"R3000: Linking RA to 0x{returnAddress:X8}");
     }
 
+    private void BNE()
+    {
+        if (registers[instruction.Rs] != registers[instruction.Rt]) Branch();
+        
+        PerformDelayedLoad();
+    }
+
     private void ADDIU()
     {
         uint a = registers[instruction.Rs];
