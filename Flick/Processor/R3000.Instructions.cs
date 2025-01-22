@@ -17,6 +17,14 @@ public partial class R3000
         
         registers[instruction.Rd] = value;
     }
+    
+    private void SRA()
+    {
+        uint value = (uint)((int)registers[instruction.Rt] >> (byte)instruction.Shift);
+        PerformDelayedLoad();
+        
+        registers[instruction.Rd] = value;
+    }
 
     private void JR()
     {

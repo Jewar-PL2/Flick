@@ -124,6 +124,7 @@ public partial class R3000
                 switch (instruction.Function)
                 {
                     case 0x00: SLL(); break;
+                    case 0x03: SRA(); break;
                     case 0x08: JR(); break;
                     case 0x23: SUBU(); break;
                     case 0x25: OR(); break;
