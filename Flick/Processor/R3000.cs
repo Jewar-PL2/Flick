@@ -118,13 +118,13 @@ public partial class R3000
                 switch (instruction.Function)
                 {
                     case 0x00: SLL(); break;
-                    case 0x03: SRA(); break;
+                    // case 0x03: SRA(); break;
                     case 0x08: JR(); break;
-                    case 0x09: JALR(); break;
-                    case 0x20: ADD(); break;
+                    // case 0x09: JALR(); break;
+                    // case 0x20: ADD(); break;
                     case 0x21: ADDU(); break;
-                    case 0x23: SUBU(); break;
-                    case 0x24: AND(); break;
+                    // case 0x23: SUBU(); break;
+                    // case 0x24: AND(); break;
                     case 0x25: OR(); break;
                     case 0x2B: SLTU(); break;
                     default: IllegalInstruction(); break;
@@ -143,7 +143,7 @@ public partial class R3000
             case 0x10: COP0(); break;
             case 0x20: LB(); break;
             case 0x23: LW(); break;
-            case 0x24: LBU(); break;
+            // case 0x24: LBU(); break;
             case 0x28: SB(); break;
             case 0x29: SH(); break;
             case 0x2B: SW(); break;
