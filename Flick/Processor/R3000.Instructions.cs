@@ -176,7 +176,7 @@ public partial class R3000
     {
         switch (instruction.Rs)
         {
-            case 0: MFC0(); break;
+            // case 0: MFC0(); break;
             case 4: MTC0(); break;
             default: IllegalInstruction(); break;
         }
