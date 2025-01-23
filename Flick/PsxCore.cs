@@ -33,14 +33,14 @@ public class PsxCore
 
     private readonly struct MemoryRanges
     {
-        public static readonly Range Bios = new(0x1FC00000, 512 * 1024);
-        public static readonly Range Ram = new(0x00000000, 2 * 1024 * 1024);
-        public static readonly Range Expansion2 = new(0x1F802000, 66);
-
-        public static readonly Range MemControl = new(0x1F801000, 36);
-        public static readonly Range RamSize = new(0x1F801060, 4);
-        public static readonly Range IrqControl = new(0x1F801070, 8);
-        public static readonly Range Spu = new(0x1F801C00, 640);
+        public static readonly Range Ram          = new(0x00000000, 2 * 1024 * 1024);
+        public static readonly Range Expansion    = new(0x1F000000, 1024 * 1024);
+        public static readonly Range MemControl   = new(0x1F801000, 36);
+        public static readonly Range RamSize      = new(0x1F801060, 4);
+        public static readonly Range IrqControl   = new(0x1F801070, 8);
+        public static readonly Range Spu          = new(0x1F801C00, 640);
+        public static readonly Range Expansion2   = new(0x1F802000, 66);
+        public static readonly Range Bios         = new(0x1FC00000, 512 * 1024);
         public static readonly Range CacheControl = new(0xFFFE0130, 4);
     }
     
@@ -86,6 +86,12 @@ public class PsxCore
         {
             // 2 MB RAM is mirrored
             return ram[offset & 0x1FFFFF];
+        }
+        
+        if (MemoryRanges.Expansion.Contains(address, out offset))
+        {
+            Utility.Log($"PSXCORE: Unhandled Read8 from EXPANSION at 0x{address:X8}");
+            return 0xFF;
         }
         
         if (MemoryRanges.Bios.Contains(address, out offset))
