@@ -126,6 +126,7 @@ public partial class R3000
                     case 0x23: SUBU(); break;
                     case 0x24: AND(); break;
                     case 0x25: OR(); break;
+                    case 0x2B: SLTU(); break;
                     default: IllegalInstruction(); break;
                 }
                 break;
@@ -134,7 +135,9 @@ public partial class R3000
             case 0x03: JAL(); break;
             case 0x04: BEQ(); break;
             case 0x05: BNE(); break;
+            case 0x08: ADDI(); break;
             case 0x09: ADDIU(); break;
+            case 0x0C: ANDI(); break;
             case 0x0D: ORI(); break;
             case 0x0F: LUI(); break;
             case 0x10: COP0(); break;

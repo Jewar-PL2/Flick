@@ -91,6 +91,14 @@ public partial class R3000
         registers[instruction.Rd] = value;
     }
 
+    private void SLTU()
+    {
+        uint value = registers[instruction.Rs] < registers[instruction.Rt] ? 1u : 0u;
+        PerformDelayedLoad();
+        
+        registers[instruction.Rd] = value;
+    }
+
     private void J()
     {
         nextProgramCounter = (programCounter & 0xF0000000) | (instruction.Target * 4);
@@ -119,6 +127,21 @@ public partial class R3000
         PerformDelayedLoad();
     }
 
+    private void ADDI()
+    {
+        uint a = registers[instruction.Rs];
+        uint b = instruction.ImmediateSigned;
+        PerformDelayedLoad();
+
+        if (Utility.CheckAddOverflow(a, b, out uint result))
+        {
+            Utility.Panic($"CPU: ADDI overflow");
+            return;
+        }
+        
+        registers[instruction.Rt] = result;
+    }
+    
     private void ADDIU()
     {
         uint a = registers[instruction.Rs];
@@ -127,6 +150,13 @@ public partial class R3000
         PerformDelayedLoad();
         
         registers[instruction.Rt] = result;
+    }
+    
+    private void ANDI()
+    {
+        uint value = registers[instruction.Rs] & instruction.Immediate;
+        PerformDelayedLoad();
+        registers[instruction.Rt] = value;
     }
     
     private void ORI()
