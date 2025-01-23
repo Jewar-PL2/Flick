@@ -61,6 +61,11 @@ public class PsxCore
             return Utility.ReadUInt32(ram, offset & 0x1FFFFF);
         }
         
+        // TODO: FIX THIS OR CPU ASAP
+        // For some reason the CPU tries to read from EXPANSION 1 (it shouldn't do that yet)
+        // Then the PC gets misaligned which shouldn't happen either
+        // I need to figure out what's going on
+        
         if (MemoryRanges.Bios.Contains(address, out offset))
         {
             return Utility.ReadUInt32(bios, offset);
